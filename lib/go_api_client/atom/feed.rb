@@ -30,7 +30,7 @@ module GoApiClient
         begin
           doc = Nokogiri::XML(http_fetcher.get!(@atom_feed_url))
           doc.css("pipeline").inject({}) do |hash, feed|
-            hash[feed.attr("href")] = GoApiClient::Atom::Feed.new(feed.attr("href")).fetch!
+            hash[feed.attr("href")] = GoApiClient::Atom::Feed.new(feed.attr("href")).fetch!(http_fetcher)
             hash
           end
         end
